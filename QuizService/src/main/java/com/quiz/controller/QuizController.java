@@ -15,6 +15,7 @@ import com.quiz.entities.Quiz;
 import com.quiz.services.QuizService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
@@ -38,7 +39,8 @@ public class QuizController {
 	
 	@GetMapping("/{quizId}")
 	//@CircuitBreaker(name = "questionBreaker", fallbackMethod = "questionFallback")
-	@Retry(name="questionService", fallbackMethod = "questionFallback")
+//	@Retry(name="questionService", fallbackMethod = "questionFallback")
+	@RateLimiter(name="questionRateLimiter", fallbackMethod = "questionFallback")
 	public Quiz getQuiz(@PathVariable("quizId") Integer quizId) {
 		logger.info("Retry count {} " , retryCount);
 		retryCount++;
