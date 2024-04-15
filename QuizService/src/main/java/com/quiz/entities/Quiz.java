@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 
@@ -24,6 +24,10 @@ public class Quiz {
 	
 	//make the variable transient if do not want to store in database
 	private transient List<Question> questions;
+	public Quiz(Long id, String title) {
+		this.id=id;
+		this.title=title;
+	}
 	public List<Question> getQuestions() {
 		return questions;
 	}
@@ -32,6 +36,15 @@ public class Quiz {
 	}
 	public Long getId() {
 		return id;
+	}
+	public Quiz(Long id, String title, List<Question> questions) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.questions = questions;
+	}
+	public Quiz() {
+		super();
 	}
 	public void setId(Long id) {
 		this.id = id;
@@ -42,5 +55,6 @@ public class Quiz {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 
 }
